@@ -7,11 +7,11 @@ public class StringCalculator {
 
         int result = 0;
 
-
         final String[] splitNumbers = numbers
                 .replace(" ", "")
-                .replace("\n", ",")
-                .split(",");
+                .split("[\\n|,]");
+
+        System.out.println(splitNumbers[0]);
 
         for (String value : splitNumbers) {
             result += Integer.valueOf(value);
