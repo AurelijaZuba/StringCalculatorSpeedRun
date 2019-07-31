@@ -11,11 +11,10 @@ public class StringCalculator {
                 .replace(" ", "")
                 .split(",");
 
-        if(splitNumbers.length == 1){
+        if(splitNumbers.length >= 1){
            number1 = Integer.valueOf(splitNumbers[0]);
         }
-        if(splitNumbers.length == 2){
-            number1 = Integer.valueOf(splitNumbers[0]);
+        if(splitNumbers.length >= 2){
             number2 = Integer.valueOf(splitNumbers[1]);
         }
 
