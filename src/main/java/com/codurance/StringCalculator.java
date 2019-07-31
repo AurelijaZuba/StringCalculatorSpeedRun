@@ -39,7 +39,8 @@ public class StringCalculator {
 
     private String removeCustomOperatorPrefix(String numbers) {
         StringBuilder sb = new StringBuilder(numbers);
-        sb.delete(0, 4);
+        int index = numbers.indexOf('\n') + 1;
+        sb.delete(0, index);
         return sb.toString();
     }
 
