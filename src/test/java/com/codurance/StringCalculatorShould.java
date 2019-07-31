@@ -15,4 +15,14 @@ public class StringCalculatorShould {
         int expected = 0;
         assertThat(actual).isEqualTo(expected);
     }
+
+    @Test
+    void return_4_when_string_is_only_4() {
+        StringCalculator stringCalculator = new StringCalculator();
+
+        int actual = stringCalculator.add("4");
+
+        int expected = 4;
+        assertThat(actual).isEqualTo(expected);
+    }
 }
