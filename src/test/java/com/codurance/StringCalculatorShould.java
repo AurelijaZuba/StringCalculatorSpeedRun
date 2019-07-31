@@ -15,7 +15,8 @@ public class StringCalculatorShould {
             "'2, 3', 5",
             "'1, 2, 3', 6",
             "'1, 2, 3, 4, 5, 6, 7, 8, 9', 45",
-            "'1\n2, 3', 6"
+            "'1\n2, 3', 6",
+            "'//;\\n1;2', 3"
     })
     void add_numbers(String input, int expected) {
         StringCalculator stringCalculator = new StringCalculator();
