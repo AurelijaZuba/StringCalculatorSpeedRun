@@ -10,6 +10,7 @@ public class StringCalculator {
 
         final String[] splitNumbers = numbers
                 .replace(" ", "")
+                .replace("\n", ",")
                 .split(",");
 
         for (String value : splitNumbers) {
