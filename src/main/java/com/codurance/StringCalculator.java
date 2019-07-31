@@ -1,9 +1,14 @@
 package com.codurance;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Queue;
+
 public class StringCalculator {
     private boolean usingCustomSeparator = false;
 
-    public int add(String numbers) {
+    public int add(String numbers) throws NegativeNumberFound {
         int result = 0;
 
         if(numbers.equals("")) {
@@ -15,8 +20,18 @@ public class StringCalculator {
         if(usingCustomSeparator)
             numbers = removeCustomOperatorPrefix(numbers);
 
+        boolean negativeFound = false;
+        List<String> negativeNumbers = new ArrayList<>();
         for (String value : extractSplitNumbers(numbers, separator)) {
             result += Integer.valueOf(value);
+            if(Integer.valueOf(value) < 0) {
+                negativeFound = true;
+                negativeNumbers.add(value);
+            }
+        }
+
+        if(negativeFound) {
+            throw new NegativeNumberFound("error: negatives not allowed: " + String.join(", ", negativeNumbers));
         }
 
         return  result;

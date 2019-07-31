@@ -6,6 +6,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class StringCalculatorShould {
     @ParameterizedTest
@@ -21,7 +22,7 @@ public class StringCalculatorShould {
             "'//-;\n1-;2', 3",
 
     })
-    void add_numbers(String input, int expected) {
+    void add_numbers(String input, int expected) throws NegativeNumberFound {
         StringCalculator stringCalculator = new StringCalculator();
 
         int actual = stringCalculator.add(input);
@@ -31,12 +32,13 @@ public class StringCalculatorShould {
 
     @Test
     void not_allow_negatives() {
-        Assertions.assertThrows(NegativeNumberFound.class, () -> {
+        NegativeNumberFound thrown = Assertions.assertThrows(NegativeNumberFound.class, () -> {
             StringCalculator stringCalculator = new StringCalculator();
 
             String input = "1, -2, -3";
             int actual = stringCalculator.add(input);
         });
 
+        assertThat(thrown.getMessage()).isEqualTo("error: negatives not allowed: -2, -3");
     }
 }
