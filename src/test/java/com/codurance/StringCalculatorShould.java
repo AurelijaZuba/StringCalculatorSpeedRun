@@ -25,4 +25,16 @@ public class StringCalculatorShould {
         int expected = 4;
         assertThat(actual).isEqualTo(expected);
     }
+
+    @Test
+    void return_3_when_string_contains_one_and_two() {
+        StringCalculator stringCalculator = new StringCalculator();
+
+        int actual = stringCalculator.add("1, 2");
+
+        int expected = 3;
+        assertThat(actual).isEqualTo(expected);
+    }
+
+
 }
