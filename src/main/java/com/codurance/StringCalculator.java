@@ -1,35 +1,45 @@
 package com.codurance;
 
 public class StringCalculator {
-    public int add(String numbers) {
-        if(numbers.equals(""))
-            return 0;
+    private boolean usingCustomSeparator = false;
 
+    public int add(String numbers) {
         int result = 0;
 
-        String separator = null;
+        if(numbers.equals("")) {
+            return result;
+        }
 
-        separator = extractCustomSeparator(numbers);
+        String separator = getSeparator(numbers);
 
-        if(separator != null)
-            numbers = getCustomSeparatedValues(numbers);
-        else
-            separator = "[\\n|,]";
+        if(usingCustomSeparator)
+            numbers = removeCustomOperatorPrefix(numbers);
 
-        final String[] splitNumbers = numbers
-                .replace(" ", "")
-                .split(separator);
-
-        for (String value : splitNumbers) {
+        for (String value : extractSplitNumbers(numbers, separator)) {
             result += Integer.valueOf(value);
         }
 
         return  result;
     }
 
-    private String getCustomSeparatedValues(String numbers) {
+    private String[] extractSplitNumbers(String numbers, String separator) {
+        return numbers
+                .replace(" ", "")
+                .split(separator);
+    }
+
+    private String getSeparator(String numbers) {
+        String separator = extractCustomSeparator(numbers);
+        if (separator == null)
+            return "[\\n|,]";
+
+        usingCustomSeparator = true;
+        return separator;
+    }
+
+    private String removeCustomOperatorPrefix(String numbers) {
         StringBuilder sb = new StringBuilder(numbers);
-        sb.delete(0, 5);
+        sb.delete(0, 4);
         return sb.toString();
     }
 
@@ -37,6 +47,7 @@ public class StringCalculator {
         if(!numbers.startsWith("//"))
             return null;
         StringBuffer sb = new StringBuffer(numbers);
-        return sb.substring(2,3);
+        final int indexOfNewline = numbers.indexOf('\n');
+        return sb.substring(2, indexOfNewline);
     }
 }
